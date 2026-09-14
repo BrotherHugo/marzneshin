@@ -6,11 +6,14 @@
 
 <br/>
 <p align="center">
-    <a href="https://github.com/BrotherHugo/marzneshin/actions/workflows/ci.yml">
-        <img src="https://github.com/BrotherHugo/marzneshin/actions/workflows/ci.yml/badge.svg" />
+    <a href="https://github.com/BrotherHugo/marzneshin/actions/workflows/test.yml">
+        <img src="https://github.com/BrotherHugo/marzneshin/actions/workflows/test.yml/badge.svg" />
     </a>
     <a href="https://hub.docker.com/r/brotherhugo/marznode" target="_blank">
         <img src="https://img.shields.io/docker/v/brotherhugo/marznode/v0.1.0?label=marznode&logo=docker" />
+    </a>
+    <a href="https://hub.docker.com/r/brotherhugo/marzneshin" target="_blank">
+        <img src="https://img.shields.io/docker/v/brotherhugo/marzneshin/v0.1.0?label=marzneshin&logo=docker" />
     </a>
     <br>
     <a href="#">

@@ -7,7 +7,7 @@ services:
       - /var/lib/marzneshin:/var/lib/marzneshin
 
   marznode:
-    image: dawsh/marznode:latest
+    image: brotherhugo/marznode:v0.1.0
     restart: always
     environment:
       SERVICE_ADDRESS: "127.0.0.1"
@@ -15,6 +15,10 @@ services:
       XRAY_EXECUTABLE_PATH: "/usr/local/bin/xray"
       XRAY_ASSETS_PATH: "/usr/local/lib/xray"
       XRAY_CONFIG_PATH: "/var/lib/marznode/xray_config.json"
+      SING_BOX_ENABLED: "True"
+      SING_BOX_EXECUTABLE_PATH: "/usr/local/bin/sing-box"
+      SING_BOX_CONFIG_PATH: "/var/lib/marznode/sing-box.json"
+      SING_BOX_RESTART_ON_FAILURE: "True"
       SSL_KEY_FILE: "./server.key"
       SSL_CERT_FILE: "./server.cert"
     volumes:
