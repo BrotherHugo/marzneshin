@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from collections import defaultdict
 from datetime import datetime
 
@@ -9,6 +10,8 @@ from app.db import GetDB
 from app.db.models import NodeUsage, NodeUserUsage, User
 from app.marznode import MarzNodeBase
 from app.tasks.data_usage_percent_reached import data_usage_percent_reached
+
+logger = logging.getLogger(__name__)
 
 
 def record_user_usage_logs(
@@ -122,7 +125,8 @@ async def get_users_stats(
             if stat.usage:
                 params.append({"uid": stat.uid, "value": stat.usage})
         return node_id, params
-    except:
+    except Exception:
+        logger.exception("failed to fetch users stats from node %s", node_id)
         return node_id, []
 
 
