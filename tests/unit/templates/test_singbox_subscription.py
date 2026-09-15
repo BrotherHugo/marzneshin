@@ -1,4 +1,4 @@
-"""Инварианты клиентского шаблона подписки sing-box 1.13."""
+"""Инварианты клиентского шаблона подписки sing-box 1.14."""
 
 from __future__ import annotations
 
@@ -50,20 +50,20 @@ class TestSingBoxSubscriptionTemplate:
 
         # when / then
         assert "dns" not in outbound_types
+        assert "block" not in outbound_types
         assert "selector" in outbound_types
         assert "urltest" in outbound_types
         assert "direct" in outbound_types
-        assert "block" in outbound_types
 
-    def test_route_uses_default_domain_resolver_not_store_dns(self) -> None:
+    def test_route_uses_default_domain_resolver_and_store_dns(self) -> None:
         # given
         route = self.under_test["route"]
         cache_file = self.under_test["experimental"]["cache_file"]
 
         # when / then
         assert route["default_domain_resolver"] == "dns-local"
-        assert cache_file.get("store_rdrc") is True
-        assert "store_dns" not in cache_file
+        assert cache_file.get("store_dns") is True
+        assert "store_rdrc" not in cache_file
 
     def test_v2share_render_happy_path(self) -> None:
         # given
@@ -91,8 +91,8 @@ class TestSingBoxSubscriptionTemplate:
         version = subprocess.check_output(
             [sing_box, "version"], text=True, stderr=subprocess.STDOUT
         )
-        if "1.13." not in version:
-            pytest.skip(f"нужен sing-box 1.13.x, установлен: {version.splitlines()[0]}")
+        if "1.14." not in version:
+            pytest.skip(f"нужен sing-box 1.14.x, установлен: {version.splitlines()[0]}")
 
         config_path = tmp_path / "sing-box-check.json"
         config_path.write_text(self._render_with_dummy_vless(), encoding="utf-8")
