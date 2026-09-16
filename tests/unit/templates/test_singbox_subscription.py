@@ -61,9 +61,27 @@ class TestSingBoxSubscriptionTemplate:
         cache_file = self.under_test["experimental"]["cache_file"]
 
         # when / then
-        assert route["default_domain_resolver"] == "dns-local"
+        assert route["default_domain_resolver"] == "dns-remote"
+        resolve = next(
+            item for item in route["rules"] if item.get("action") == "resolve"
+        )
+        assert resolve.get("server") == "dns-remote"
         assert cache_file.get("store_dns") is True
         assert "store_rdrc" not in cache_file
+
+    def test_tun_strict_route_ipv4_only_and_rfc1918_exclude(self) -> None:
+        tun = next(
+            item
+            for item in self.under_test["inbounds"]
+            if item.get("type") == "tun"
+        )
+
+        assert tun.get("strict_route") is True
+        assert tun["address"] == ["172.19.0.1/30"]
+        exclude = tun["route_exclude_address"]
+        assert "172.16.0.0/12" in exclude
+        assert "10.0.0.0/8" in exclude
+        assert "192.168.0.0/16" in exclude
 
     def test_v2share_render_happy_path(self) -> None:
         # given

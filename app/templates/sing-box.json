@@ -24,13 +24,14 @@
       "tag": "tun-in",
       "interface_name": "sbtun0",
       "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
+        "172.19.0.1/30"
       ],
       "auto_route": true,
+      "strict_route": true,
       "route_exclude_address": [
         "192.168.0.0/16",
         "10.0.0.0/8",
+        "172.16.0.0/12",
         "fc00::/7"
       ]
     }
@@ -57,6 +58,7 @@
       {
         "inbound": "tun-in",
         "action": "resolve",
+        "server": "dns-remote",
         "strategy": "ipv4_only"
       },
       {
@@ -74,7 +76,7 @@
     ],
     "final": "proxy",
     "auto_detect_interface": true,
-    "default_domain_resolver": "dns-local"
+    "default_domain_resolver": "dns-remote"
   },
   "experimental": {
     "cache_file": {
